@@ -46,34 +46,13 @@ public class LabRoom
         return Devices.FirstOrDefault(d => d.Id == deviceId);
     }
 
-    public decimal CalculateAnnualMaintenanceCost()
+        public decimal CalculateAnnualMaintenanceCost()
     {
         decimal total = 0;
         foreach (var d in Devices)
         {
-            if (d is Computer)
-            {
-                Computer c = (Computer)d;
-                decimal cost = c.Price * 0.05m;
-                if (c.HasDiscreteGPU) cost += c.Price * 0.02m;
-                if (DateTime.Now.Year - c.Year > 5) cost += c.Price * 0.01m;
-                total += cost;
-            }
-            else if (d is Printer)
-            {
-                Printer p = (Printer)d;
-                decimal cost = p.Price * 0.04m;
-                if (p.PrintedPages > 100000) cost += 500000m;
-                if (p.IsColor) cost += 300000m;
-                total += cost;
-            }
-            else if (d is Projector)
-            {
-                Projector pj = (Projector)d;
-                decimal cost = pj.Price * 0.03m;
-                if (pj.LampHours > 3000) cost += 1500000m;
-                total += cost;
-            }
+            // Xóa hết if-else. Nhờ Tính đa hình, chỉ cần 1 dòng code duy nhất:
+            total += d.CalculateAnnualMaintenanceCost(); 
         }
         return total;
     }
