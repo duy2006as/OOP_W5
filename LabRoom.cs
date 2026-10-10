@@ -46,37 +46,28 @@ public class LabRoom
         return Devices.FirstOrDefault(d => d.Id == deviceId);
     }
 
-        public decimal CalculateAnnualMaintenanceCost()
+    public decimal CalculateAnnualMaintenanceCost()
     {
         decimal total = 0;
         foreach (var d in Devices)
         {
-            // Xóa hết if-else. Nhờ Tính đa hình, chỉ cần 1 dòng code duy nhất:
             total += d.CalculateAnnualMaintenanceCost(); 
         }
         return total;
     }
 
-   public List<Device> GetDevicesRequiringMaintenance()
+    public List<Device> GetDevicesRequiringMaintenance()
     {
         List<Device> result = new List<Device>();
         
+        // Chỉ sử dụng 1 vòng lặp duy nhất
         foreach (var d in Devices)
         {
-            if (d.Status == DeviceStatus.UnderMaintenance)
+            if (d.Status == DeviceStatus.UnderMaintenance || (DateTime.Now.Year - d.Year) > 5)
             {
                 result.Add(d);
             }
         }
-        
-        foreach (var d in Devices)
-        {
-            if ((DateTime.Now.Year - d.Year) > 5)
-            {
-                result.Add(d);
-            }
-        }
-        
         return result;
     }
 }
