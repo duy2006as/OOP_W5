@@ -1,3 +1,6 @@
+// Mã sinh viên: 202418887
+// Họ tên: Hoàng Đình Duy
+
 using System;
 
 public class Computer : Device, INetworkable
