@@ -27,7 +27,7 @@ public abstract class Device
     public decimal Price { get; set; }
     public DeviceStatus Status { get; set; }
 
-    public Device(string id, string name, int year, decimal price, DeviceStatus status)
+   public Device(string id, string name, int year, decimal price, DeviceStatus status)
     {
         if (string.IsNullOrWhiteSpace(id))
             throw new ArgumentException("Mã thiết bị không được rỗng.");
@@ -35,6 +35,9 @@ public abstract class Device
         if (year > DateTime.Now.Year)
             throw new ArgumentException("Năm sử dụng không được lớn hơn năm hiện tại.");
             
+        // BỔ SUNG ĐOẠN CODE NÀY ĐỂ CHẶN GIÁ MUA ÂM HOẶC BẰNG 0
+        if (price <= 0)
+            throw new ArgumentException("Giá mua thiết bị phải lớn hơn 0.");
         
         Id = id;
         Name = name;
